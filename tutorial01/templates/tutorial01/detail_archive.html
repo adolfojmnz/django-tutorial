@@ -1,0 +1,16 @@
+{% extends parent_template|default:"base_tutorial.html" %}
+
+{% block title %}
+	Archive Detail
+{% endblock %}
+
+{% block content %}
+	<h1>Archive Detail</h1>
+	<ul>
+		<li><h3>{{ archive_detail.headline }}</h3></li>
+		<li>Pubished on {{ archive_detail.pub_date|date:"F j, Y" }}</li>
+		<li>By {{ archive_detail.author }}</li>
+		<br>
+		<p>{{ atchive_detail.content }}</p>
+	</ul>
+{% endblock %}
