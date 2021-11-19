@@ -1,4 +1,4 @@
-{% extends parent_template|default:"base_tutorial.html" %}
+{% extends parent_template|default:"tutorial01/base_tutorial.html" %}
 
 {% block title %}
 	Archive Detail
@@ -6,15 +6,11 @@
 
 {% block content %}
 	<h1>Archive Detail</h1>
-	{% if archive %}
 		<ul>
-			<li><h3>{{ archive_detail.headline }}</h3></li>
+			<h3>{{ archive_detail.headline }}</h3>
 			<li>Pubished on {{ archive_detail.pub_date|date:"F j, Y" }}</li>
 			<li>By {{ archive_detail.author }}</li>
 			<br>
 			<p>{{ atchive_detail.content }}</p>
 		</ul>
-	{% else %}
-		<h1>Archive detail is not available.</h1>
-	{% endif %}
 {% endblock %}
