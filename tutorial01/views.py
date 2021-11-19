@@ -4,7 +4,7 @@ from .models import Article
 
 
 def year_archive(request, year):
-    template_name = 'templates/archive_list.html'
+    template_name = 'tutorial01/archive_list.html'
     context = {
         'year': year,
         'archive_list': Article.objects.filter(
@@ -15,7 +15,7 @@ def year_archive(request, year):
 
 
 def month_archive(request, year, month):
-	template_name = 'templates/archive_list.html'
+	template_name = 'tutorial01/archive_list.html'
 	context = {
 		'year': year,
 		'month': month,
@@ -28,7 +28,7 @@ def month_archive(request, year, month):
 
 
 def detail_archive(request, year, month, pk):
-	template_name = 'templates/archive_detail.html'
+	template_name = 'tutorial01/archive_detail.html'
 	context = {
 		'year': year,
 		'month': month,
