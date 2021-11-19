@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-	{% if archive %}
+	{% if archive_list.exists %}
 		<h1>List of article for year {{ year }}</h1>
 		<ul>
 			{% for archive in archive_list %}
