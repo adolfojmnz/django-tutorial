@@ -1,0 +1,22 @@
+{% extends parent_template|default:"polls/base_polls.html" %}
+
+{% block title %}
+Polls Index
+{% endblock %}
+
+{% block content %}
+	<h1> YOUR ARE SEEING THE POLLS INDEX PAGE. </h1>
+
+	{% for poll in poll_list %}
+		<ul>
+			<h3>Poll id: {{ poll.id }}</h3>
+			<p>{{ poll.question_text }}</p>
+			<p>Published on {{ poll.pub_date }}.</p>
+			<button class="vote" type="text">
+				<a href="">
+					Vote
+				</a>
+			</button>
+		</ul>
+	{% endfor %}
+{% endblock %}
