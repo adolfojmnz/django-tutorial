@@ -5,5 +5,12 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Your are seeing details for {{ question_id }} poll.</h1>
+	<h1>Poll id: {{ question.id }}</h1>
+	<p>{{ question.question_text }}</p>
+	<p>Published on {{ question.pub_date }}</p>
+	{% for choice in choices %}
+		<button class="choice-button" type="text">
+			{{ choice.choice_text }}
+		</button>
+	{% endfor %}
 {% endblock %}
