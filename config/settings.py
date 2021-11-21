@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 	'tutorial01',
 	'polls_02',
 
+    'bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
