@@ -6,7 +6,7 @@ from .models import Question, Choice
 def poll_list(request):
 	template_name = 'polls/index.html'
 	context = {
-		'poll_list': Question.objects.order_by('-pub_date')[:5]
+		'question_list': Question.objects.order_by('-pub_date')[:5]
 	}
 	return render(request, template_name, context)
 
