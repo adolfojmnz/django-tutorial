@@ -13,7 +13,7 @@ Polls Index
 			<p>{{ question.question_text }}</p>
 			<p>Published on {{ question.pub_date }}.</p>
 			<button class="detail-button" type="text">
-				<a href="{% url 'poll_details' question.id %}">Details</a>
+				<a href="{% url 'polls:details' question.id %}">Details</a>
 			</button>
 		</ul>
 	{% endfor %}
