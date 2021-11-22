@@ -24,7 +24,7 @@ def poll_details(request, question_id):
 
 
 def poll_vote(request, question_id):
-	template_name = 'polls/poll_vote.html'
+	template_name = 'polls/poll_detail.html'
 	question = get_object_or_404(Question, pk=question_id)
 
 	try:
@@ -38,7 +38,7 @@ def poll_vote(request, question_id):
 			'question': question,
 			'error_message': 'Select an option!'
 		}
-		return render(request, template_name, content)
+		return render(request, template_name, context)
 
 	return HttpResponseRedirect(
 		reverse(
