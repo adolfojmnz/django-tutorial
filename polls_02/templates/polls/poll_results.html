@@ -4,6 +4,10 @@
 Poll Results
 {% endblock %}
 
+{% block navbar %}
+{{ block.super }}
+{% endblock %}
+
 {% block content %}
 	<h1>{{ question.question_text }}</h1>
 	<ul>
@@ -14,5 +18,4 @@ Poll Results
 			</li>
 		{% endfor %}
 	</ul>
-	<a href="{% url 'polls:index' %}">Poll Index</a>
 {% endblock %}

@@ -4,6 +4,10 @@
 Poll Details
 {% endblock %}
 
+{% block navbar %}
+{{ block.super }}
+{% endblock %}
+
 {% block content %}
 	<form action="{% url 'polls:vote' question.id %}" method="post">
 		{% csrf_token %}
