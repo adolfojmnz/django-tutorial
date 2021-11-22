@@ -1,9 +1,18 @@
 {% extends parent_template|default:"polls/base_polls.html" %}
 
 {% block title %}
-	Poll Results
+Poll Results
 {% endblock %}
 
 {% block content %}
-	<h1>Your are seeing results for {{ question_id }} poll.</h1>
+	<h1>{{ question.question_text }}</h1>
+	<ul>
+		{% for choice in question.choice_set.all %}
+			<li>
+				{{ choice.choice_text }} -- {{ choice.votes }}
+				 vote{{ choice.votes|pluralize }}
+			</li>
+		{% endfor %}
+	</ul>
+	<a href="{% url 'polls:index' %}">Poll Index</a>
 {% endblock %}
