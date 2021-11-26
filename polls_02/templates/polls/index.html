@@ -7,14 +7,16 @@ Polls Index
 {% block content %}
 	<h1> YOUR ARE SEEING THE POLLS INDEX PAGE. </h1>
 
-	{% for question in question_list %}
-		<ul>
-			<h3>Poll id: {{ question.id }}</h3>
-			<p>{{ question.question_text }}</p>
-			<p>Published on {{ question.pub_date }}.</p>
-			<button class="detail-button" type="text">
-				<a href="{% url 'polls:details' question.id %}">Details</a>
-			</button>
-		</ul>
-	{% endfor %}
+	<ul>
+		{% for question in question_list %}
+				<h3>Poll id: {{ question.id }}</h3>
+				<p>{{ question.question_text }}</p>
+				<p>Published on {{ question.pub_date }}.</p>
+				<button class="detail-button" type="text">
+					<a href="{% url 'polls:details' question.id %}">Details</a>
+				</button>
+		{% empty %}
+			<p>This looks too clean. Wanna create your own question?</p>
+		{% endfor %}
+	</ul>
 {% endblock %}
