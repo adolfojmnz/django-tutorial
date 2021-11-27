@@ -80,6 +80,26 @@ class IndexViewTests(TestCase):
         self.assertEqual(len(response.context['question_list']), 5)
 
 
+class QuestionDetailsView(TestCase):
+
+    def test_past_questions_details_are_shown(self):
+        """ Raises a 200 success code for questions already published. """
+        question = create_question('A published question', -30)
+        response = self.client.get(
+            reverse('polls:details', args=(question.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, question.question_text)
+
+    def test_future_questions_details_are_not_shown(self):
+        """ Raises a 404 error code for questions yet to be published. """
+        question = create_question('A future question', 30)
+        response = self.client.get(
+            reverse('polls:details', args=(question.id,))
+        )
+        self.assertEqual(response.status_code, 404)
+
+
 class QuestonModelTests(TestCase):
 
     def test_was_published_recently_with_future_questions(self):
