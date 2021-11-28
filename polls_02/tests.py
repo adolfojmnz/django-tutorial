@@ -4,13 +4,16 @@ from django.utils import timezone
 
 from datetime import timedelta
 
-from .models import Question
+from .models import Question, Choice
 
 
-def create_question(question_text, days):
+def create_question(question_text, days, choice=True):
     """ Creates and returns a question for testing. """
     date = timezone.now() + timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=date)
+    question = Question.objects.create(question_text=question_text, pub_date=date)
+    if choice:
+        create_choice(question)
+    return question
 
 
 def create_question_list(question_text, days, num_questions):
@@ -21,6 +24,30 @@ def create_question_list(question_text, days, num_questions):
             create_question(f'{question_text} number {n}', days)
         )
     return question_list
+
+
+def create_choice(question, choice_text=None, votes=0):
+	""" Create a choice for a given question object. """
+	if choice_text is None:
+		choice_text = 'Sample choice'
+	choice = Choice.objects.create(
+		question = question,
+		choice_text = choice_text,
+		votes = votes
+	)
+	return choice
+
+
+def create_choice_list(question, num_choices, choice_text=None):
+	choice_list = []
+	if choice_text is None:
+		choice_text = 'Sample choice'
+	for n in range(num_choices):
+		choice_list.append(create_choice(
+			question = question,
+			choice_text=f'{choice_text} number {n}...'
+		))
+	return choice_list
 
 
 class IndexViewTests(TestCase):
@@ -80,7 +107,7 @@ class IndexViewTests(TestCase):
         self.assertEqual(len(response.context['question_list']), 5)
 
 
-class QuestionDetailsView(TestCase):
+class QuestionsDetailsView(TestCase):
 
     def test_past_questions_details_are_shown(self):
         """ Raises a 200 success code for questions already published. """
@@ -98,6 +125,32 @@ class QuestionDetailsView(TestCase):
             reverse('polls:details', args=(question.id,))
         )
         self.assertEqual(response.status_code, 404)
+
+
+class PollsVoteView(TestCase):
+
+	def disabled_test_select_choice_and_vote(self):
+		""" Checks if the vote count for a choice
+		is updated correctly. """
+		question = create_question('A question for testing', -30)
+		response = self.client.get(
+			reverse('polls:details', args=(question.id,))
+		)
+		# TODO: find a way to select a choice (in the HTML template) before
+		# calling self.client.get(reverse('polls:vote' args=(question.id,)))
+
+
+	def test_no_choice_selected(self):
+		""" Test no seleced choice espected behaviour. """
+		question = create_question('A question for testing', -30, choice=False)
+		choices = create_choice_list(question, 3)
+		response = self.client.get(
+			reverse('polls:vote', args=(question.id,))
+		)
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(
+			response.context['error_message'], 'Select an option!'
+		)
 
 
 class QuestonModelTests(TestCase):
