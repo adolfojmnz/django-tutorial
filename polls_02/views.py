@@ -11,11 +11,19 @@ class IndexView(generic.ListView):
 	template_name = 'polls/index.html'
 	context_object_name = 'question_list' # default's
 
-	def get_queryset(self):
+	def clean_queryset(self):
+		""" Deletes questions without choices. """
 		queryset = Question.objects.filter(
 			pub_date__lte = timezone.now()
-		).order_by('-pub_date')[:5]
+		)
+		for q in queryset:
+			if not q.choice_set.all():
+				q.delete()
 		return queryset
+
+	def get_queryset(self):
+		""" Returns the last 5 published polls. """
+		return self.clean_queryset().order_by('-pub_date')[:5]
 
 
 class DetailsView(generic.DetailView):
@@ -33,6 +41,13 @@ class DetailsView(generic.DetailView):
 class ResultsView(generic.DetailView):
 	model = Question
 	template_name = 'polls/poll_results.html'
+
+	def get_queryset(self):
+		""" Excludes questions yet to be published. """
+		queryset = Question.objects.filter(
+			pub_date__lte = timezone.now()
+		)
+		return queryset
 
 
 def poll_vote(request, question_id):
