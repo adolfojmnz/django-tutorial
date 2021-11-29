@@ -1,5 +1,10 @@
 {% extends parent_template|default:"polls/base_polls.html" %}
 
+{% block style %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+{% endblock %}
+
 {% block title %}
 Polls Index
 {% endblock %}
