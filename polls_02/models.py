@@ -1,11 +1,19 @@
 from django.utils import timezone
 from django.db import models
 
+from django.contrib import admin
 from datetime import timedelta
+
 
 class Question(models.Model):
 	question_text = models.CharField(max_length=200)
 	pub_date 	  = models.DateField(default=timezone.now)
+
+	@admin.display(
+		boolean = True,
+		ordering = 'pub_date',
+		description = 'Published Recently'
+	)
 
 	def was_published_recently(self):
 		now = timezone.now()
