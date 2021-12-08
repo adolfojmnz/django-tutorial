@@ -1,0 +1,16 @@
+{% extends parent_template|default:"users/base_users.html" %}
+
+{% block title %}
+Send An Email
+{% endblock %}
+
+{% block content %}
+<form action="/send/" method="post">
+	{% csrf_token %}
+
+	{# reuse a form #}
+	{% include "users/form_table_snippet.html" %}
+	<input type="submit" value="Send">
+
+</form>
+{% endblock %}
