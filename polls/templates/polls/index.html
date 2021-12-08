@@ -1,16 +1,11 @@
 {% extends parent_template|default:"polls/base_polls.html" %}
 
-{% block style %}
-	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-{% endblock %}
-
 {% block title %}
 Polls Index
 {% endblock %}
 
 {% block content %}
-	<h1> YOUR ARE SEEING THE POLLS INDEX PAGE. </h1>
+	<h1> POLLS INDEX PAGE. </h1>
 
 	<ul>
 		{% for question in question_list %}
@@ -22,6 +17,7 @@ Polls Index
 				</button>
 		{% empty %}
 			<p>This looks too clean. Wanna create your own question?</p>
+			<a href=""><button class="btn btn-sm btn-outline-secondary" type="button">Create</button></a>
 		{% endfor %}
 	</ul>
 {% endblock %}
